@@ -23,7 +23,7 @@
 
 - 📊 **多格式支持**：支持 SVG 和 ASCII 渲染导出
 - 🎨 **丰富主题**：内置 15 种精美主题，满足不同场景需求
-- 📈 **全图表支持**：支持 Flowchart, Sequence, State, Class, ER 等 5 种常用图表
+- 📈 **全图表支持**：支持 Flowchart, Sequence, State, Class, ER 和 Architecture 模板
 - ⚡ **高效渲染**：支持批量并行渲染，速度飞快
 - 📚 **开箱即用**：提供完整的模板和详细文档
 
@@ -88,12 +88,13 @@ node scripts/batch.mjs \
 
 ## 📂 使用示例
 
-查看 `assets/example_diagrams/` 目录下的 5 个模板文件，快速上手：
+查看 `assets/example_diagrams/` 目录下的 6 个模板文件，快速上手：
 - `flowchart.mmd` - 流程图
 - `sequence.mmd` - 时序图
 - `state.mmd` - 状态图
 - `class.mmd` - 类图
 - `er.mmd` - ER 图
+- `architecture.mmd` - 架构图
 
 ## 📚 完整文档
 详细使用指南请参阅 [SKILL.md](SKILL.md)

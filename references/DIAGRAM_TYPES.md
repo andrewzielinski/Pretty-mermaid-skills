@@ -294,6 +294,102 @@ erDiagram
 
 ---
 
+## Architecture Diagram
+
+Architecture diagrams use Mermaid's `architecture-beta` syntax to show services,
+resources, and how they are grouped. Use them for system boundaries, deployment
+views, repo/package structure, and documentation maps.
+
+### Basic Syntax
+```mermaid
+architecture-beta
+    group docs[Documentation]
+    group scripts[Render Scripts]
+
+    service guide[SKILL.md] in docs
+    service types[DIAGRAM_TYPES.md] in docs
+    service render[render.mjs] in scripts
+    service output[SVG or ASCII]
+
+    guide:R --> L:types
+    types:R --> L:render
+    render:R --> L:output
+```
+
+### Groups
+```mermaid
+architecture-beta
+    group publicApi[Public API]
+    group privateApi[Private API] in publicApi
+```
+
+Use groups to show ownership or containment. Groups can be nested with
+`in {parent id}`.
+
+### Services
+```mermaid
+architecture-beta
+    group app[Application]
+    service frontend[Frontend] in app
+    service backend[Backend] in app
+```
+
+Use labels as the primary representation. Icons are optional in Mermaid, so this
+skill's examples omit icons unless the user explicitly needs them.
+
+### Edges
+```mermaid
+architecture-beta
+    service client[Client]
+    service api[API]
+    service database[Database]
+
+    client:R --> L:api
+    api:R --> L:database
+```
+
+Edges specify the side they leave and enter with `T`, `B`, `L`, or `R`.
+Use `-->` for a directed edge and `--` for an undirected edge.
+
+### Edges Out of Groups
+```mermaid
+architecture-beta
+    group docs[Documentation]
+    group scripts[Scripts]
+    service guide[SKILL.md] in docs
+    service render[render.mjs] in scripts
+
+    guide{group}:R --> L:render{group}
+```
+
+Use `{group}` on a service when the edge should connect to that service's group
+boundary. Mermaid does not allow group ids themselves as edge endpoints.
+
+### Junctions
+```mermaid
+architecture-beta
+    service source[Source]
+    service svg[SVG]
+    service ascii[ASCII]
+    junction split
+
+    source:R --> L:split
+    split:R --> L:svg
+    split:B --> T:ascii
+```
+
+Junctions create split points for one-to-many or many-to-one relationships.
+
+### Best Practices
+- Prefer clear labels over icons for reusable templates
+- Declare groups, services, and junctions before referencing them in edges
+- Keep labels short enough to read in rendered output
+- Use groups for ownership or containment, not decoration
+- Use deterministic layout first; only enable `randomize` when spacing needs vary
+- Validate architecture diagrams with Mermaid Live or Mermaid CLI when renderer support matters
+
+---
+
 ## General Best Practices
 
 ### Theming

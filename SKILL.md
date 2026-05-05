@@ -2,11 +2,12 @@
 name: pretty-mermaid
 description: |
   Render beautiful Mermaid diagrams as SVG or ASCII art using the beautiful-mermaid library.
-  Supports 15+ themes, 5 diagram types (flowchart, sequence, state, class, ER), and ultra-fast rendering.
+  Supports 15+ themes, 5 renderer-backed diagram types (flowchart, sequence, state, class, ER),
+  plus architecture-beta templates and reference guidance.
 
   Use this skill when:
   1. User asks to "render a mermaid diagram" or provides .mmd files
-  2. User requests "create a flowchart/sequence diagram/state diagram"
+  2. User requests "create a flowchart/sequence/state/architecture diagram"
   3. User wants to "apply a theme" or "beautify a diagram"
   4. User needs to "batch process multiple diagrams"
   5. User mentions "ASCII diagram" or "terminal-friendly diagram"
@@ -155,7 +156,7 @@ node scripts/render.mjs \
 **Step 1: List available templates**
 ```bash
 ls assets/example_diagrams/
-# flowchart.mmd  sequence.mmd  state.mmd  class.mmd  er.mmd
+# architecture.mmd  flowchart.mmd  sequence.mmd  state.mmd  class.mmd  er.mmd
 ```
 
 **Step 2: Copy and modify**
@@ -215,6 +216,16 @@ erDiagram
     ORDER ||--|{ ORDER_ITEM : contains
 ```
 
+**Architecture** - Services, resources, and package structure
+```mermaid
+architecture-beta
+    group docs[Documentation]
+    group scripts[Render Scripts]
+    service guide[SKILL.md] in docs
+    service render[render.mjs] in scripts
+    guide:R --> L:render
+```
+
 ### From User Requirements
 
 **Step 1: Identify diagram type**
@@ -223,6 +234,7 @@ erDiagram
 - **States/lifecycle** → State
 - **Object model** → Class
 - **Database** → ER
+- **Services/resources/repo structure** → Architecture
 
 **Step 2: Create diagram file**
 ```bash
@@ -319,7 +331,7 @@ done
 **Step 1: Organize diagrams**
 ```bash
 diagrams/
-├── architecture.mmd
+├── system-overview.mmd
 ├── workflow.mmd
 └── database.mmd
 ```
@@ -337,7 +349,7 @@ node scripts/batch.mjs \
 **Output:**
 ```
 Found 3 diagram(s) to render...
-✓ architecture.mmd
+✓ system-overview.mmd
 ✓ workflow.mmd
 ✓ database.mmd
 
@@ -376,15 +388,13 @@ node scripts/batch.mjs \
 
 ```bash
 # User provides architecture description
-# → Create flowchart.mmd
-# → Render with professional theme
-
-node scripts/render.mjs \
-  --input architecture.mmd \
-  --output docs/architecture.svg \
-  --theme github-dark \
-  --transparent
+# → Create architecture.mmd using architecture-beta
+# → Validate/render with Mermaid Live or Mermaid CLI if output is needed
 ```
+
+**Note:** `architecture-beta` is Mermaid syntax guidance and a template in this
+skill. Validate it with Mermaid Live or Mermaid CLI if the current
+beautiful-mermaid renderer does not support it.
 
 ### 2. API Sequence Diagram
 
@@ -481,6 +491,7 @@ Documentation to inform diagram creation:
 
 ### assets/
 Template files for quick diagram creation:
+- `example_diagrams/architecture.mmd` - Architecture diagram template
 - `example_diagrams/flowchart.mmd` - Flowchart template
 - `example_diagrams/sequence.mmd` - Sequence diagram template
 - `example_diagrams/state.mmd` - State diagram template

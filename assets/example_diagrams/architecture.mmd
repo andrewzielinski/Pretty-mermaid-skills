@@ -1,0 +1,32 @@
+architecture-beta
+    group docs[Documentation]
+    group examples[Example Diagrams]
+    group scripts[Render Scripts]
+    group outputs[Outputs]
+
+    service user[User or AI Assistant]
+    service skill[SKILL.md] in docs
+    service diagramTypes[DIAGRAM_TYPES.md] in docs
+    service themes[THEMES.md] in docs
+    service flowchart[flowchart.mmd] in examples
+    service sequence[sequence.mmd] in examples
+    service architecture[architecture.mmd] in examples
+    service render[render.mjs] in scripts
+    service batch[batch.mjs] in scripts
+    service themeList[themes.mjs] in scripts
+    service library[beautiful-mermaid]
+    service svg[SVG] in outputs
+    service ascii[ASCII] in outputs
+
+    user:R --> L:skill
+    skill:R --> L:diagramTypes
+    skill:R --> L:themes
+    diagramTypes:B --> T:architecture
+    diagramTypes:B --> T:flowchart
+    diagramTypes:B --> T:sequence
+    themes:B --> T:themeList
+    flowchart{group}:R --> L:render{group}
+    render:R --> L:library
+    batch:R --> L:library
+    library:R --> L:svg
+    library:R --> L:ascii
